@@ -3,7 +3,7 @@ import express from 'express'
 const app = express()
 const port = 8080
 
-const persons = [
+let persons = [
     { 
       "id": 1,
       "name": "Arto Hellas", 
@@ -31,7 +31,9 @@ app.get('/', (req, res) => {
 })
 
 app.get('/info', (req, res) => {
-  res.send('<p>Hello Worlda!<p/>')
+    let myDate = new Date()
+  res.send(`<p>Phonebook has info of ${persons.length} people<p/>
+    <p>${myDate}<p/>`)
 })
 
 app.get('/api/persons', (req, res) => {
