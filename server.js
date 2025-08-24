@@ -1,4 +1,5 @@
 import express from 'express'
+import morgan from 'morgan'
 
 const app = express()
 const port = 8080
@@ -26,7 +27,13 @@ let persons = [
     }
 ]
 
+morgan.token('body', function getBody(req) {
+    return JSON.stringify(req.body)
+})
+
 app.use(express.json())
+
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
 
 app.get('/', (req, res) => {
     res.send('<h1>Hello Worlda!</h1>')
