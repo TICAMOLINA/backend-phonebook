@@ -27,6 +27,7 @@ let persons = [
     }
 ]
 
+
 morgan.token('body', function getBody(req) {
     return JSON.stringify(req.body)
 })
