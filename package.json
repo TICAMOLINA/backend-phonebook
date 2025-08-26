@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "build:ui": "rm -rf dist && cd ../02.frontend-ejercicios-3.9 && npm run build && cp -r dist ../01.backend-node-ejercicios-3.9",
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push"
   },
   "keywords": [],
   "author": "Mauricio Molina",
