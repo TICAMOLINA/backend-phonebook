@@ -1,5 +1,6 @@
 import express from 'express'
 import morgan from 'morgan'
+import cors from 'cors' //! INSTALA CORS
 
 const app = express()
 const port = 8080
@@ -8,22 +9,22 @@ let persons = [
     {
         "id": 1,
         "name": "Arto Hellas",
-        "number": "040-123456"
+        "phone": "040-123456"
     },
     {
         "id": 2,
         "name": "Ada Lovelace",
-        "number": "39-44-5323523"
+        "phone": "39-44-5323523"
     },
     {
         "id": 3,
         "name": "Dan Abramov",
-        "number": "12-43-234345"
+        "phone": "12-43-234345"
     },
     {
         "id": 4,
         "name": "Mary Poppendieck",
-        "number": "39-23-6423122"
+        "phone": "39-23-6423122"
     }
 ]
 
@@ -35,6 +36,8 @@ morgan.token('body', function getBody(req) {
 app.use(express.json())
 
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
+
+app.use(cors()) //! IMPLEMENTA CORS
 
 app.get('/', (req, res) => {
     res.send('<h1>Hello Worlda!</h1>')
@@ -88,7 +91,7 @@ app.post('/api/persons', (req, res) => {
     //! La constante newPerson obtiene el body de la peticion (las propiedades de cada elemento)
     //? TENER EN CUENTA EL USO DEL MIDDLEWARE APP.USE(EXPRESS.JSON())
 
-    if (newPerson.name === "" || newPerson.number === "") {
+    if (newPerson.name === "" || newPerson.phone === "") {
         //! si en el body, los campos name y number vienen vacios se responde y finaliza la ejecucion del codigo con un status 400, y un mensaje de error con metodo json
         return res.status(400).json({
             error: 'content missing'
@@ -109,7 +112,7 @@ app.post('/api/persons', (req, res) => {
     const addedPerson = {
         //! En caso de superar todas las verificaciones se crea un nuevo objeto con los datos name y number de la peticion, y se incluye un id que es el numero obtenido de la funcion generateId, la cual se ejecuta en este punto
         name: newPerson.name,
-        number: newPerson.number,
+        phone: newPerson.phone,
         id: generateId()
     }
 
