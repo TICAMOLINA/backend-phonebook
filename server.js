@@ -3,7 +3,6 @@ import morgan from 'morgan'
 import cors from 'cors' //! INSTALA CORS
 
 const app = express()
-const port = 8080
 
 let persons = [
     {
@@ -122,6 +121,7 @@ app.post('/api/persons', (req, res) => {
     //! se devuelve una respuesta con codigo 201 (de creacion exitosa), y mostrara con json los datos nuevos
 })
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+const PORT = process.env.PORT || 8080
+app.listen(PORT, () => {
+    console.log(`Example app listening on port ${PORT}`)
 })
